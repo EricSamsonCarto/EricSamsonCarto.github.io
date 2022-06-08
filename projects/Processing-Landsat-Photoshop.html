@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html lang="en" class="h-100">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Processing Landsat 8 Bands in Photoshop</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="page_styles\default_styles.css">
+    </head>
+
+    <body class="bg-white">
+    
+        <div class="bg-dark d-flex text-center text-white">
+            <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+                <header class="mb-auto">
+                    <div>
+                        <h3 class="float-md-start mb-0">Eric Samson</h3>
+                        <nav class="nav nav-masthead justify-content-center float-md-end">
+                            <a class="nav-link about_link" href="#">About</a>
+                            <a class="nav-link projects_link" href="#">Projects</a>
+                            <a class="nav-link contact_link" href="#">Contact</a>
+                            <div class="space">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </nav>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+    <div class="container blog_post px-3">
+        <div class="intro">
+            <h1 class="text-center">Processing Landsat 8 Bands in Photoshop</h1>
+            <p class="lead">
+            </p>
+            <hr>
+        </div>
+
+        <div class="details">
+            May 2nd, 2020
+        </div>
+        
+        <p>
+            I recently completed a Photoshop <a class="link-info" target="_blank" href='http://www.shadedrelief.com/landsat8/'>tutorial</a> 
+            written by Tom Patterson, which dives into the process of creating natural color satellite images from Landsat 8 bands in Photoshop. 
+            To put what I learned into practice, I chose an interesting area in Nevada, and gathered some Level-1 Landsat data. 
+            The image below is the map I created utilizing the Photoshop technique's Tom outlines:
+        </p>
+
+        <div class="image_block text-center">
+            <img class="lrg_image" src="https://lh3.googleusercontent.com/2XhaQVPXWNIke43Svozo9BUQgKoBfdTm_U6hgkE5AdfsrlPKkp6u5l1Kod-Sq76yyOM7r9xNyznwDXNMLWbABUGSDJKaTPFMBFsql-3kLfSEwI_FAbGtW-EM2kUonPT5m-wlo94O6A=w2400">
+            <div class="caption">
+                Mountain Ranges in Central Nevada. Created from Landsat 8 and 30 meter SRTM data.
+                <a class="link-info" target="_blank" href="https://lh3.googleusercontent.com/2XhaQVPXWNIke43Svozo9BUQgKoBfdTm_U6hgkE5AdfsrlPKkp6u5l1Kod-Sq76yyOM7r9xNyznwDXNMLWbABUGSDJKaTPFMBFsql-3kLfSEwI_FAbGtW-EM2kUonPT5m-wlo94O6A=w2400">Full size here.</a>
+            </div>
+        </div>
+
+        <p>
+            The Landsat 8 image was captured on 4/14/2020. 
+            I added a hillshade to highlight the elevation contrast 
+            (I discuss the hillshade in further detail down towards the bottom of this page). 
+            The major mountain ranges in central Nevada are labeled, and the highest peaks in each range are labeled. 
+            This part of Nevada has always interested me, whenever I am panning a map in the western 
+            part of the US, the stark difference in elevation and finger like mountain ranges always makes me stop and look:
+        </p>
+
+        <div class="image_block text-center">
+            <img class="small_image" src="https://lh3.googleusercontent.com/kxh-ZpTqpBFOfGAZUlSBrR1HGqGnlL7yMXxq7WgRzu4wfUE-BVENaMCad6oScJd-RFXfG3JO7eC1NCPeBhHO9hQ-Ss1iGO8ijOC2rWzYUZrCKS9LggB3LTfDU2BcW1hTd7JkHiREMw=w2400">
+        </div>
+
+        <p>
+            Below I've outlined the four major steps of processing Landsat 8 bands with photoshop:
+        </p>
+
+        <ol>
+            <li>
+                Open bands 4,3, and 2 into photoshop, merge the channels into one RGB: <br>Red: Band 4, Green: Band 3, Blue: Band 2.
+            </li>
+            <li>
+                Open the curves tool. The curve is dependent upon what the imagery consists of, Tom gives some examples of curves 
+                <a class="link-info" target="_blank" href='http://www.shadedrelief.com/landsat8/landsat8naturalc.html'>here.</a>
+            </li>
+            <li>
+                Overlay a LandsatLook Natural Color Image and set the opacity to around 20.
+            </li>
+            <li>
+                Create a 'Panchromatic Sharpening' layer using Band 8. Overlay it on your current image stack, and change the blending setting to "luminosity."
+            </li>
+        </ol>
+
+        <p>
+            There are additional steps which utilize masks. Masks can help 
+            create better looking imagery by improving the color of certain features. 
+            For example, a mask can be used to limit or remove the blue tint seen in snow 
+            that's created when the Landsatlook natural color image is overlaid. Conversely, 
+            you can use a mask to increase the color of certain features, like the blue tint of water bodies. 
+        </p>
+
+        <p>
+            Without the masks, the 4 steps above are the core processes required to 
+            create a beautiful looking image from Landsat 8 bands. Here is what my 
+            final output looked like, before georeferencing the image in ArcGIS Pro:
+        </p>
+
+        <div class="image_block text-center">
+            <img class="lrg_image" src="https://lh3.googleusercontent.com/ZMx3cW1ZwkwolKtq1vfHtFoOIeNQdIuUa18xGB4ItXetRcHZ4mrzvuzR1i8KPqHcZkXFrYtwVArHYANHAikU2TLwLxA6sEmJSRQhv3DvG7wRQirCMatmy6DJMqlUDIKNlOGSfu0gAQ=w2400">
+            <div class="caption">
+                <a class="link-info" target="_blank" href="https://lh3.googleusercontent.com/ZMx3cW1ZwkwolKtq1vfHtFoOIeNQdIuUa18xGB4ItXetRcHZ4mrzvuzR1i8KPqHcZkXFrYtwVArHYANHAikU2TLwLxA6sEmJSRQhv3DvG7wRQirCMatmy6DJMqlUDIKNlOGSfu0gAQ=w2400">Full size here.</a>
+            </div>
+        </div>
+
+        <p>
+            Last week, on April 29th, there was a day-long live streaming event consisting of mapping tutorials 
+            put on by experts in the industry called 
+            <a class="link-info" target="_blank" href='https://docs.google.com/spreadsheets/d/e/2PACX-1vQYEF0OVrMNF47enGSAAeZvDCnC7JdlCY4Bu5aCSPGfHyOI6pROi12svuM64QUG3xkeQN4IsT027jHv/pubhtml'>“How to do Map Stuff”</a>. 
+            <a class="link-info" target="_blank" href='https://adventuresinmapping.com/page/1/'>John Nelson</a> 
+            walked through a tutorial on how to make a "smooth-sharp ambient hillshade" in ArcGIS Pro. 
+            That video can be found <a class="link-info" target="_blank" href='https://www.youtube.com/watch?v=1ZkXZnw-tsc'>here</a>. 
+            I gathered <a class="link-info" target="_blank" href='https://dwtkns.com/srtm30m/'>SRTM</a> elevation tiles and combined 
+            the DEM's into a mosaic. The difference in hillshade is seen below, with the smooth sharp ambient hillshade on the right.
+        </p>
+
+        <div class="image_block text-center">
+            <img class="lrg_image" src="https://lh3.googleusercontent.com/Gx6-2vMFLRmlF-LFChv9HvzK7p3XxRRAKRdRaJvrOh3kKwSvs2Uu4CaUOfWEKFGuNthm3wX1UnFYbe_yvOzkKIiroLD91QKGoSj6uJV672_t7CNRh_kNkr3jgmqV-596zMmqZFXZXA=w2400">
+        </div>
+
+    </div>
+
+    <br>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="page_js\navbar.js"></script>
+
+    <!-- GOOGLE TRACKER -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-155272775-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-155272775-1');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en" class="h-100">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Eric Samson GIS Land Surface Temperature Arcpy Toolbox">
+        <meta name="keywords" content="Eric Samson,GIS,Eric,Samson,Arcpy,Toolbox,LST,NDISI,MNDWI,NDVI,Arcgis,Pro,Arcgis Pro tools,tool,Remote Sensing,
+        Land Surface Temperature,Normalized Difference Impervious Surface Index, Modified Normalized Difference Water Index, Normalized Difference Vegetation Index">
+
+        <title>Land Surface Temperature From Landsat 8</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="page_styles\default_styles.css">
+        <link rel='stylesheet' href='page_styles\twentytwenty.css'>
+
+        <style>
+            .arrow {
+                width: 25px;
+                margin: auto;
+                display: block;
+                padding-bottom: .5rem;
+                padding-top: .5rem
+            }
+
+            .twentytwenty-before-label:before {
+                content: "NDVI";
+            }
+
+            .twentytwenty-after-label:before {
+                content: "LST";
+            }
+        </style>
+    </head>
+
+    <body class="bg-light">
+    
+        <div class="bg-dark d-flex text-center text-white">
+            <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+                <header class="mb-auto">
+                    <div>
+                        <h3 class="float-md-start mb-0">Eric Samson</h3>
+                        <nav class="nav nav-masthead justify-content-center float-md-end">
+                            <a class="nav-link about_link" href="#">About</a>
+                            <a class="nav-link projects_link" href="#">Projects</a>
+                            <a class="nav-link contact_link" href="#">Contact</a>
+                            <div class="space">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </nav>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+        <div class="container blog_post px-3">
+            <div class="intro">
+                <h1 class="text-center">Land Surface Temperature From Landsat 8</h1>
+                <p class="lead">
+                    ArcGIS Pro Python script tool that will calculate LST from user's input Landsat 8 bands.
+                </p>
+                <hr>
+            </div>
+
+            <div class="details">
+                April 17th, 2020 | <a class="link-info" target="_blank" href="https://github.com/EricSamsonCarto/LandSurfaceTemperature_Landsat8">github</a>
+            </div>
+            
+            <p>
+                I was working with some Landsat 8 data the other day and thought, "I wonder if I could calculate the land surface temperature using these bands?" 
+                I started up the google machine and found that estimating the land surface temperature (LST) from landsat 8 bands is totally possible. 
+                I found many resources offering instructions, but the steps seemed a little cumbersome. I noticed that the entire process could be automated 
+                pretty easily, so decided to create a tool that would automate the process. I’ve outlined the three basic steps:
+            </p>
+
+            <ol>
+                <li>Find and retrieve variables within a Landsat metadata file.</li>
+                <li>Use bands 4 and 5 to create an NDVI layer.</li>
+                <li>Make a series of raster calculations using the variables gathered from the metadata file, 
+                    information from the NDVI layer, and bands 10 and 11.</li>
+            </ol>
+
+            <div class="slider_section">
+                <img class="lrg_image" src="https://lh3.googleusercontent.com/yEbCbkz2pxo9rC1XP9EnNbsO8PdZDtBVe0HLwhfbsmztnN6D6XSzMyhoI6P2bVoKgb0c4DFUVurCuI2pvtt8tKfVmX9ezbvFd3kJ2iOgSRPn4RWahHOsnhsIlK6qkV7uxF1ZcTiX1Q=w2400">
+                <img class="arrow" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3352342/108-1084286_ios-arrow-thin-down-comments-thin-down-arrow.png">
+                <div id="imageslide">
+                    <img src="https://lh3.googleusercontent.com/FlZmi_oMFqmeEKF0copKxANPB29PNt1dhhz4iIMCga9jmP6NGHENWaizNVBO57BAOgHdQs3SGOQgTZsseCEaYVz2aUjtLlRmaaJ80Z9vKWwixO25r82DN1c6qqndjp53XdKsF7B3lw=w2400">
+                    <img src="https://lh3.googleusercontent.com/WjRuiWNOv5vZq0g6ZGDU6DfdyoImCUUgfoiyjqyOAyJm-3uTYqmrUAHW1yjahbjN8YRKLyCpxCn332rF2tL3yKGZA2M3S2pv6Ar5BSZPxn7plslYOCWCsu7-NUBXOenSoXm_OwE_pA=w2400">
+                </div>    
+                <div class="caption text-center">
+                    The top image is a Landsat 8 image of California's central valley. 
+                    The bottom images in the slider are a couple output rasters from the LST tool. 
+                    The tool outputs an NDISI raster and an LST raster, and optionally outputs an NDVI or MNDWI raster.
+                </div>
+            </div>
+            
+            <p>
+                The images above serve as a good example of the value land surface temperature data can deliver to the agricultural industry. 
+                The top image shows a region of fields in the central valley of California. By using the tool I created, users can quickly create a 
+                land surface temperature raster visualizing fields that might be suffering drought stress or fields that are being over watered. 
+            </p>
+            
+            <p>
+                After doing the process manually a number of times, I started writing the python script as an ArcGIS pro tool:
+            </p>
+
+            <div class="image_block text-center">
+                <img class="tiny_image" src="https://lh3.googleusercontent.com/jSysUz_Y1BO6IOYvDLvWeZG8arxRpZRXQdPWXIpv5S5sV3spAWiLew81CMRp-Vqb-wjnSh42o7X1JfHneSZFF3pOjTGaJYyLAv5h-1FhDKiixmHYp4VlRId2sFgB8KBm0onsVTr75g=w2400">
+            </div>
+
+            <p>
+                The tool is capable of calculating the following products:
+            </p>
+
+            <ol>
+                <li>LST (Land Surface Temperature)</li>
+                <li>NDVI (Normalized Difference Vegetation Index)</li>
+                <li>NDISI (Normalized Difference Impervious Surface Index)</li>
+                <li>MNDWI (Modified Normalized Difference Water Index)</li>
+            </ol>
+
+            <p>
+                As shown in the screenshot above, the tool will need a path to the folder holding the Landsat 8 bands and metadata. 
+                Optionally, it will also take a mask geometry. It is best to mask the rasters to the area of interest before the tool is run, 
+                or by using the mask option within the tool itself. I have included an empty polygon feature class for quick polygon creation within 
+                the folder (see zip of "MaskFeature_Sample.gdb") on the <a href='https://github.com/EricSamsonCarto/LandSurfaceTemperature_Landsat8'>github page.</a> 
+                The output LST raster will be in degrees Celsius. The output names will appear as: 'LST_184457GMT_20200403', which stands for 'Land Surface 
+                Temperature_Time Image Acquired in GMT_Date Acquired'
+            </p>
+
+
+            <div class="image_block text-center">
+                <img class="lrg_image" src="https://lh3.googleusercontent.com/NrirfGOXHHJFQcQM3kYlvo1zhRZSdKctr57joJ7tZk13l1c-zpXOWyG2K3I3jFL-l70ix_sTK0i12Goo9-S32QKjBMF2B6BUDs2BFelwh7uhl9HK-_jDpF5G1CmsyVPDrfSAnwbVYQ=w2400">
+            </div>
+
+            <hr>
+            <h5>Resources:</h5>
+            <ul>
+                <li><a target="_blank" href="https://www.researchgate.net/publication/232724051_Analysis_of_Impervious_Surface_and_its_Impact_on_Urban_Heat_Environment_using_the_Normalized_Difference_Impervious_Surface_Index_NDISI"><em>Analysis of Impervious Surface and its Impact on Urban Heat Environment using the Normalized Difference Impervious Surface Index (NDISI)</em>- Hanqiu Xu</a></li>
+                <li><a target="_blank" href="https://www.sciencedirect.com/science/article/abs/pii/S0034425703003390"><em>Estimation of land surface temperature–vegetation abundance relationship for urban heat island studies</em>- Weng Et Al.</a></li>
+                <li><a target="_blank" href="https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1574_L8_Data_Users_Handbook-v5.0.pdf">USGS's Landsat Handbook</a></li>
+                <li><a target="_blank" href="https://www.usgs.gov/land-resources/nli/landsat/using-usgs-landsat-level-1-data-product">USGS's Level 1 Guide</a></li>
+                <li><a target="_blank" href="https://www.star.nesdis.noaa.gov/jpss/lst.php">NOAA</a></li>
+                <li><a target="_blank" href="https://www.esri.com/arcgis-blog/products/product/analytics/deriving-temperature-from-landsat-8-thermal-bands-tirs/">ESRI</a></li>
+            </ul>
+        </div>
+
+    <br>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="page_js\navbar.js"></script>
+
+    <!-- GOOGLE TRACKER -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-155272775-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-155272775-1');
+    </script>
+
+    <!-- TWENTY TWENTY -->
+    <script src='https://cdn.jsdelivr.net/npm/zurb-twentytwenty@0.1.1/js/jquery.event.move.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/zurb-twentytwenty@0.1.1/js/jquery.twentytwenty.js'></script>
+    <script src="page_js\image_slider.js"></script>
+
+</body>
+
+</html>

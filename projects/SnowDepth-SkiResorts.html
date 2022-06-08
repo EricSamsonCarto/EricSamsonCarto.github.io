@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="en" class="h-100">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>ArcGIS API for Javascript: Ski Resorts</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css">
+        <link rel="stylesheet" href="page_styles\default_styles.css">
+        <link rel="stylesheet" href="page_styles\skiresorts.css">
+    </head>
+
+    <body class="bg-light">
+    
+        <div class="bg-dark d-flex text-center text-white">
+            <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+                <header class="mb-auto">
+                    <div>
+                        <h3 class="float-md-start mb-0">Eric Samson</h3>
+                        <nav class="nav nav-masthead justify-content-center float-md-end">
+                            <a class="nav-link about_link" href="#">About</a>
+                            <a class="nav-link projects_link" href="#">Projects</a>
+                            <a class="nav-link contact_link" href="#">Contact</a>
+                            <div class="space">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </nav>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+    <div class="container blog_post px-3">
+        <div class="intro">
+            <h1 class="text-center">ArcGIS API for Javascript: <br> Ski Resorts</h1>
+            <p class="lead">
+            </p>
+            <hr>
+        </div>
+
+        <div class="details">
+            April 3rd, 2020 | <a class="link-info" target="_blank" href="https://github.com/EricSamsonCarto/USSkiResorts_ArcGISAPI">github</a>
+        </div>
+        
+        <p>
+            During these turbulent times, I have realized just how lucky I am for my health, my family, and to be employed. 
+            I have spent a lot of my free time during quarantine day-dreaming about skiing. 
+            Every ski resort in California is currently closed, rightfully so, in order to reduce the spread of COVID-19. 
+            This past March, the Sierra mountains saw a huge uptick in snowfall, after a remarkably poor showing in February:
+        </p>
+
+        <h5 class="text-center">
+            Top Of Squaw Valley, CA (8000 Feet):
+            <br>Monthly Snow Totals, 2020 Season
+        </h5>
+        <div id="chartdiv"></div>
+
+        <p>
+            2 inches in February, to 151 inches in March. Margical March hit. 
+            While surfing around I discovered an awesome rest service issued by NOAA: 
+            <a class="link-info" target="_blank"href="https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Observations/NOHRSC_Snow_Analysis/MapServer">NOHRSC Snow Analysis</a>. 
+            This MapServer shows snow depth for most of North America. It's created by interpolating snow depth report data from various 
+            <a class="link-info" target="_blank" href="https://www.nohrsc.noaa.gov/nsa/reports.html?region=National&var=snowdepth&dy=2020&dm=4&dd=4&units=e&sort=value&filter=0">weather stations</a>.
+        </p>
+
+        <p>
+            I decided to use the ArcGIS API for Javascript to visualize it. I also put on a point layer 
+            showing ski resort locations for the contiguous US:
+        </p>
+
+        <div id="SkiMap"></div>
+        <hr>
+        <h5 class="text-center">How I Made This Map:</h5>
+
+        <p>
+            The first step involved loading the necessary modules for the map application I had in mind, using an AMD require statement. 
+            The MapImageLayer module will be used for NOAA's MapServer. I knew I wanted to have an expandable legend for the snow depth layer, 
+            so I included the Legend and Expand modules. The GeoJSONlayer module will allow me to add my Github Gist, which contains a point 
+            geoJSON file of ski resorts, onto the map. The Search module will allow users to search by ski resort name, using 
+            the "Name" field within the geoJSON layer: 
+        </p>
+
+        <script src="https://gist.github.com/EricSamsonCarto/1b64957a7c90658a3e473886fb112178.js"></script>
+
+        <p>
+            I set the basemap option to "gray-vector" to give my map a simplified look. 
+            You can find a list of default basemap settings 
+            <a class="link-info" target="_blank" href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#basemap">here.</a> 
+            Since this is a 2D map, I used the MapView Module (3D maps use the SceneView module). I set the container to 
+            "SkiMap", which will be used later to restrict the map size in the CSS and to load the map in the HTML. 
+            I set the center of the map to the Lake Tahoe region and set the initial zoom to 8. Since this is a large MapServer, 
+            I restricted users ability to zoom out, in the hopes of improving mapping speeds:
+        </p>
+
+        <script src="https://gist.github.com/EricSamsonCarto/6d5e36eadf940c5ac03ae6c2dc5530ac.js"></script>
+
+        <p>
+            I loaded in NOAA's MapServer layer. After investigating the rest service further, I found that it was made up of 7 different layers.
+            I was only interested in the snow depth layer (id = 3), so I used the sublayers option to set its visibility to true:
+        </p>  
+
+        <script src="https://gist.github.com/EricSamsonCarto/639791ad85043179172fa9665861c625.js"></script>
+
+        <p>
+            Below I set up the legend within an expand function. This gives me the ability of having the legend collapsed 
+            when the application is opened, and gives users the flexibility of opening and closing it when needed.
+        </p> 
+
+        <script src="https://gist.github.com/EricSamsonCarto/1de07dfa6a3733c94e12857dd24d9658.js"></script>
+        
+        <p>
+            I had to mess with the application's CSS classes quite a bit to adjust how the legend is displayed. 
+            I used the inspect tool within the developer tab of Google chrome to find the classes that I needed to edit:
+        </p> 
+
+        <script src="https://gist.github.com/EricSamsonCarto/cf5195bd5d49a1ed30b67a50135df7fd.js"></script>
+
+        <p>
+            In the next step, I set up a renderer variable that would act as a styling template for the ski resort geoJSON. 
+            I also added a very simple pop up template using the GeoJSON’s NAME field. I applied both options within the GeoJSON function:
+        </p>
+        
+        <script src="https://gist.github.com/EricSamsonCarto/be1560ead989b6c4a9e98068747059c6.js"></script>
+
+        <p>
+            Once again, I needed to dig around the applications default CSS classes to improve the display of the pop-ups. 
+            The default pop-up is way too clunky, all I want/need the pop-ups to display is the ski resort's name: 
+        </p> 
+        
+        <script src="https://gist.github.com/EricSamsonCarto/f20e4a5bc8b133d62cd274635eebee2f.js"></script>
+        
+        <br>
+
+        <div class="image_block text-center">
+            <img class="small_image" src="https://lh3.googleusercontent.com/xuoeb7dzln6u6rGEC0WoyAsgiGYmdoUgvIt91UsdpnDj92sMv0Bz94PcO9PhNG1P5jU2OkNxVzDum3RY0j9gAyKZOQ6-jPH1lD0k6jmkgWlUKp_nOxgV1pHxqaZZOX9L8xZ4kaYuBA=w2400">
+        </div>
+
+        <p>
+            In order to create the gray "background" outside the borders of the map that you see above, 
+            I made a large polygon shapefile and used the "Erase" tool in ArcGIS Pro to remove the shape of 
+            the continental United States. I then styled it to have the same color code as the gray-vector basemap: 
+        </p> 
+        
+        <script src="https://gist.github.com/EricSamsonCarto/9ebea5b45d8085ada8f9720efe567f7b.js"></script>
+
+        <p>
+            The last step was to allow users to search by ski resort name using the geoJSON's "Name" field: 
+        </p>  
+    
+        <script src="https://gist.github.com/EricSamsonCarto/7ff6341511aca6552386debbcca55be3.js"></script>
+
+        <p>
+            ...and some final CSS styling on the search widget to remove the suggestion drop down: 
+        </p>   
+
+        <script src="https://gist.github.com/EricSamsonCarto/fe8f0a91c29e182a0526902379b0bfae.js"></script>
+        
+        <hr>
+
+    <br>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="page_js\navbar.js"></script>
+
+    <script src="https://js.arcgis.com/4.14/"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="page_js\skiresorts.js"></script>
+
+    <!-- GOOGLE TRACKER -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-155272775-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-155272775-1');
+    </script>
+</body>
+
+</html>

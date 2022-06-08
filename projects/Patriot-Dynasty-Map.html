@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html lang="en" class="h-100">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Mapping Dominance: The Patriot's Dynasty</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="page_styles\default_styles.css">
+
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css'>
+        <link rel='stylesheet' href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+        <style>
+            #map { 
+                width: 100%;
+                height: 450px;
+                margin: auto;
+                z-index: 2;
+            }
+
+            @media (max-width: 450px) {
+                #map {
+                    height: 350px;   
+                }
+            }
+
+            .leaflet-popup-content {
+                width: 200px;
+                height: 200px;
+                overflow-x: scroll;
+            }
+
+            .chart {
+                width: 200px;
+                height: 200px;
+                responsive: true;
+                maintainAspectRatio: false;
+            }
+
+            #chartdiv {
+                width: 100%;
+                height: 400px;
+            }
+        </style>
+    </head>
+
+    <body class="bg-white">
+    
+        <div class="bg-dark d-flex text-center text-white">
+            <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+                <header class="mb-auto">
+                    <div>
+                        <h3 class="float-md-start mb-0">Eric Samson</h3>
+                        <nav class="nav nav-masthead justify-content-center float-md-end">
+                            <a class="nav-link about_link" href="#">About</a>
+                            <a class="nav-link projects_link" href="#">Projects</a>
+                            <a class="nav-link contact_link" href="#">Contact</a>
+                            <div class="space">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        </nav>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+    <div class="container blog_post px-3">
+        <div class="intro">
+            <h1 class="text-center">Mapping Dominance: The Patriot's Dynasty</h1>
+            <p class="lead">
+                Patriot's Head-to-Head Records From 2001 To Present Day
+            </p>
+            <hr>
+        </div>
+
+        <div class="details">
+            December 19th, 2019 | <a class="link-info" target="_blank" href="https://github.com/EricSamsonCarto/PatriotsDynasty_Leaflet">github</a>
+        </div>
+        
+        <div id="map"></div>
+        <div class="caption text-center">
+            LAST UPDATED: 12/19/2019
+        </div>
+
+        <p>
+            I created this map to help visualize The Patriot Dynasty, which started in 
+            2001 with their first super bowl win. It includes all regular and postseason games, 
+            but does not include pre-season. Clicking on a team's polygon will show the Patriots 
+            winning percentage and the point differential against the opposing team selected 
+            from the 2001 season to present day. There is also a "Highlights" link, which will 
+            open up a youtube video of my favorite game or moment between the associated team and The Patriots.
+        </p>
+
+        <p>
+            Since 2001, The Patriots have played in 50% of all super bowls, winning 33% percent of all 
+            super bowls. Nine super bowl appearances, Six super bowl wins. They have completed 18 consecutive 
+            winning seasons (2001-2018), their total winning percentage over this time being 77%. They have a 
+            50% or higher winning percentage against every team in the NFL, while remaining undefeated against 
+            four teams: Bears, Vikings, Falcons, and The Cowboys.
+        </p>
+
+        <div id="chartdiv"></div>
+        <div class="caption text-center">
+            <em>This chart will be updated the same time that the web map above is updated.</em>
+        </div>
+
+        <div class="image_block text-center">
+            <img class="lrg_image" src="https://lh3.googleusercontent.com/cZZ1vwEggk8bikeIsgx1LtmLvpnhRn7VIm4UWFt2opj3z7gUpweitcogT-RwU-byb0glxqZ_u7SLVle2J2P-8mM8EYot_Eoyhv8fuKt2pEkSIoFpcqpli_hfVE_NGEUUziZtDpHRYXZWazb-e3p4aPPdDMgXui-Kn5EIJ19M3bcMERUO8PeDR0uE20c2ZjN5ElObrK95yAjw-HnifnzdRnRzgB1p6rTF8WZ0IJyf_oCpr1wvUZytZrVNCfK7w7ldRABWQqwSWBA1vHU_GrDDOdJUdDxI9BDG0tF2S8wEe9wS0Gb2ZOpkAqxZDTG9wRtO0HqfzlCFQV7QmuFDIJlxs60gVuDSqITsMADUMEkwK0uiv5343pANN4KXzdkFqWKqe7WT2UNvZ6bHK3lQg7GMmA02S_Vu-qb_xdqNUme35UpC8qQncV-QD_OcYSg5JyC8Hdesb3C34P3VZSjfLpcDMM8gRS4wkkScTi2z0xjDkZ7e8bBAX41uSAJCOwrFc_-YxXL0pIxku3FLcHzXyHOzDoW9VBqJkcdfOVZi1S0Jqyug8OUqeYGOa-_r3rF5xqOcDKUe-HBiVNtZpj8CoZYjnMo-ggRiUhjP_mJ1z5d4sSLlzXRF5jXnT0Ben24t8X5gjNkGXo5yr3QHqYUKC1oHPsKk80FTnvB6Z1L6jG26jdCzJbm77ttQ33vge1g1GBPkl33IUZlwYZVkLzL5aXWGBnNaUuLd3BeqgbX_YMvB391LnV8=w1323-h883-no">
+            <img class="lrg_image" src="https://lh3.googleusercontent.com/ZenowGd_hjvNJjRgWLzyU3WyA9KlMnXclfA-sx7Ya9xZMVH9tQcsbFbesRPIlzMhjNCDIRppAUXPg9DxFPRBUTB_1DqmLo7rgS65pIj6jUg8T4yPQeqsiCDlvQuwiwPrZvAUdnk3AA=w2400">
+            <div class="caption text-center">
+                The Two Maps above are static and therefore will not be updated. They were created on 10/20/2019.
+            </div>
+        </div>
+        
+        <h4>How I Made This Map:</h4>
+
+        <p> 
+            I started by scraping the Patriots head to head statistics from ProFootballReference.com using R Studio. 
+            A guide on how to get that done can be found <a class="link-info" target="_blank" href="https://stmorse.github.io/PFR-scrape.html">here</a>. 
+            I gathered all of the tables and organized all of the data in excel. I then created a table that contained every 
+            NFL stadium and their individual coordinates. The statistics for each team were joined after the polygons were created.
+        </p>
+
+        <p>
+            I used R Studio to create the polygons you see in the webmap. To do this, I used the coordinates 
+            of each NFL stadium and the center point of every county. Each team polygon is made up of all of the closest counties to each stadium.
+        </p>
+
+        <p>
+            The first version of this map from the R analysis looked <em>slightly</em> different than what you see above. 
+            Some of the polygons, especially in the southwest, just didn't look great. I cleaned those up and realigned them in Pro. 
+            I completed the data join there, and calculated some extra fields and voila! I got a pretty decent looking layer. The raw geojson
+            file can be found 
+            <a class="link-info" target="_blank" href="https://gist.githubusercontent.com/EricSamsonCarto/999a382fa55c6df67435d3fe357e4f4f/raw/bc3caf99bcb85043ec5a5834d3bc8179b5f29065/FootballTeams3">
+                here.
+            </a>
+        </p>
+
+        <p>
+            Unfortunately, the R code and the steps that I made to get to this point are a bit chaotic, and I also didn't document them very well. 
+            I primarily used <a class="link-info" target="_blank" href="https://www.dancullen.me/teaching/r-tutorials/working-with-spatial-data-in-r">this as a guide</a>, 
+            but had to make some changes for my own purposes.
+        </p>
+
+    </div>
+
+    <br>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="page_js\navbar.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.5/Chart.min.js"></script>
+    <script src='https://unpkg.com/leaflet@1.5.1/dist/leaflet.js'></script>
+
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="page_js\patriots.js"></script>
+
+    <!-- GOOGLE TRACKER -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-155272775-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-155272775-1');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+/* Nav Styles */
+.cover-container {
+    max-width: 48em;
+}
+
+.nav-masthead .nav-link {
+    padding: .25rem 0;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .5);
+    background-color: transparent;
+    border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+}
+
+.nav-masthead .nav-link{
+    margin-left: 1rem;
+}
+
+.nav-masthead .active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+.space {
+    display: none;
+}
+
+@media (max-width: 765px) {
+    .space {
+        display: block;
+    }
+}
+
+/* Blog Body */
+
+.blog_post {
+    max-width: 45em;
+}
+
+a {
+    text-decoration: none;
+}
+
+hr {
+    width: 98%;
+    max-width: 40em;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.intro {
+    padding-top: .8rem;
+}
+
+.details {
+    font-weight: bold;
+    padding-bottom: .8rem;
+}
+
+/* image Styles */
+.image_block {
+    padding-bottom: .5rem;
+}
+
+.tiny_image {
+    width: 60%;
+}
+
+.small_image {
+    width: 70%;
+}
+
+.med_image {
+    width: 90%;
+}
+
+.lrg_image {
+    width: 100%;
+}
+
+.caption {
+    font-size: .8rem;
+    padding-bottom: .1rem;
+}
+
+.gist-meta {
+    display: none;
+}
+
+ol > li::marker {
+    font-weight: bold;
+}
+
+li {
+    padding: .1rem;
+}
+
+.twentytwenty-overlay:hover {
+    display: none;
+}
+
+.btn {
+    margin: .1rem;
+}
+
+.btn img {
+    width: 35px;
+    margin: .2rem;
+    height: 34px;
+}
