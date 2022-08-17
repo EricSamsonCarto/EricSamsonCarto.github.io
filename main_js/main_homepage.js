@@ -1,3 +1,8 @@
+//wait 3 seconds before displaying images
+setTimeout( ()=>{
+    document.querySelesctor('.project-grid').style.display = 'block'
+    }, 3000)
+
 //if the navbar is clicked from a blog post, navigate to
 //the desired page by looking at the value assigned to the
 //route variable. If there is no route variable, and the
