@@ -1,14 +1,3 @@
-var docWidth = document.documentElement.offsetWidth;
-
-[].forEach.call(
-  document.querySelectorAll('*'),
-  function(el) {
-    if (el.offsetWidth > docWidth) {
-      console.log(el);
-    }
-  }
-);
-
 //wait 3 seconds before displaying images
 setTimeout(()=>{
     $(".project-grid").css("display", "block")
@@ -82,5 +71,16 @@ $(".nav-link").click(function(){
         $("#about_section").css("display", "none");
         $("#projects_section").css("display", "none");
         $("#contact_section").css("display", "block");
+
+        var docWidth = document.documentElement.offsetWidth;
+
+        [].forEach.call(
+        document.querySelectorAll('*'),
+        function(el) {
+            if (el.offsetWidth > docWidth) {
+            console.log(el);
+            }
+        }
+        );
     }
 });
