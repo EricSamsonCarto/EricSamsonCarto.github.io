@@ -56,8 +56,6 @@ $(document).ready(function() {
         $("#contact_section").css("display", "none");
         $("#about_section").css("display", "block");
         
-        console.log('here')
-
         $(".nav-link").removeClass("active");
         $(".about_link").addClass("active");
     }
