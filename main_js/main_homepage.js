@@ -1,3 +1,14 @@
+var docWidth = document.documentElement.offsetWidth;
+
+[].forEach.call(
+  document.querySelectorAll('*'),
+  function(el) {
+    if (el.offsetWidth > docWidth) {
+      console.log(el);
+    }
+  }
+);
+
 //wait 3 seconds before displaying images
 setTimeout(()=>{
     $(".project-grid").css("display", "block")
