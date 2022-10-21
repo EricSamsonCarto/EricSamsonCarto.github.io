@@ -220,7 +220,11 @@ hr {
 
 .col-md a {
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: rgb(29, 29, 29);
+}
+
+.bg-custom {
+    background-color: #bebaba;
 }
 
 .back_page {
