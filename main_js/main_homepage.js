@@ -1,6 +1,7 @@
 //wait 3 seconds before displaying images
 setTimeout(()=>{
     $(".project-grid").css("display", "block")
+    $(".desc").css("display", "block")
     }, 800)
 
 //if the navbar is clicked from a blog post, navigate to
