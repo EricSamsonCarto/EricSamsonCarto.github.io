@@ -21,17 +21,17 @@ $('#projects_section').load('assets/projects.html', function() {
     };
 
     if (isMobile.any()) {
-        alert('Mobile');
+        var row_length = 2
     }
     else {
-        alert('Desktop');
+        var row_length = 3
     }
 
     //initial load page
     var lower_row_page_num = 0;
-    var upper_row_page_num = 2;
+    var row_length = 2;
     //display the first two rows for the first page
-    $(".project_row").slice(lower_row_page_num, upper_row_page_num).show();
+    $(".project_row").slice(lower_row_page_num, row_length).show();
 
     //on next page click
     $(".next_page").click(function(){
@@ -39,11 +39,11 @@ $('#projects_section').load('assets/projects.html', function() {
             return;
         }
         else {
-            $(".project_row").slice(lower_row_page_num, upper_row_page_num).hide();
+            $(".project_row").slice(lower_row_page_num, row_length).hide();
             lower_row_page_num += 2;
-            upper_row_page_num += 2;
-            $(".project_row").slice(lower_row_page_num, upper_row_page_num).show();
-                if ($(".project_row").length == upper_row_page_num) {
+            row_length += 2;
+            $(".project_row").slice(lower_row_page_num, row_length).show();
+                if ($(".project_row").length == row_length) {
                     $('.next-btn').prop("disabled", true);
                 }
                 if (lower_row_page_num != 0) {
@@ -58,11 +58,11 @@ $('#projects_section').load('assets/projects.html', function() {
             return;
         }
         else {
-            $(".project_row").slice(lower_row_page_num, upper_row_page_num).hide();
+            $(".project_row").slice(lower_row_page_num, row_length).hide();
             lower_row_page_num -= 2;
-            upper_row_page_num -= 2;
-            $(".project_row").slice(lower_row_page_num, upper_row_page_num).show();
-                if ($(".project_row").length != upper_row_page_num) {
+            row_length -= 2;
+            $(".project_row").slice(lower_row_page_num, row_length).show();
+                if ($(".project_row").length != row_length) {
                     $('.next-btn').prop("disabled", false);
                 }
                 if (lower_row_page_num === 0) {
