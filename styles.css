@@ -14,7 +14,7 @@ hr {
 
 /* Slide and Fade In Styles */
 .slide {
-    animation: right_to_left 1s ease;
+    animation: right_to_left 1.5s ease;
 }
 
 @keyframes right_to_left {
@@ -136,7 +136,7 @@ hr {
     transition: 0.5s all ease;
 }
 
-.imgclass{
+.imgclass {
     text-align: center;
 }
 
