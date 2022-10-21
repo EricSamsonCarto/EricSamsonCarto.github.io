@@ -153,6 +153,10 @@ hr {
     display: none;
 }
 
+.line {
+    display: none;
+}
+
 .desc {
     max-width: 47em;
     display: none;
