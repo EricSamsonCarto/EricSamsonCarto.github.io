@@ -2,7 +2,7 @@
 setTimeout(()=>{
     $(".project-grid").css("display", "block")
     $(".desc").css("display", "block")
-    }, 1500)
+    }, 1200)
 
 //if the navbar is clicked from a blog post, navigate to
 //the desired page by looking at the value assigned to the
