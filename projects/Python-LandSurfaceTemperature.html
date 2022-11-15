@@ -65,6 +65,11 @@
             </div>
             
             <p>
+                <b>Update 11/15/2022:</b> 
+                This tool will only work with Landsat Collection 2 Level-1 Product Bundle for landsat 8 data. It is currently not compatible with
+                Level-2 data.
+            </p>
+            <p>
                 I was working with some Landsat 8 data the other day and thought, "I wonder if I could calculate the land surface temperature using these bands?" 
                 I started up the google machine and found many resources offering instructions on how to estimate land surface temperature (LST) 
                 from landsat 8 bands. The steps seemed a little long and cumbersome, but I noticed that the entire process could be automated 
@@ -118,8 +123,9 @@
             </ol>
 
             <p>
-                As shown in the screenshot above, the tool will need a path to the folder holding the Landsat 8 bands and metadata. 
-                Optionally, it will also take a mask geometry. It is best to mask the rasters to the area of interest before the tool is run, 
+                As shown in the screenshot above, the tool will need a path to the folder holding the Landsat 8 bands and metadata. To get this data, you may download
+                a Level-1 landsat 8 bundle from the USGS's <a href="https://earthexplorer.usgs.gov/">EarthExplorer</a>.
+                Optionally, the tool can take a mask geometry. It is best to mask the rasters to the area of interest before the tool is run, 
                 or by using the mask option within the tool itself. I have included an empty polygon feature class for quick polygon creation within 
                 the folder (see zip of "MaskFeature_Sample.gdb") on the <a href='https://github.com/EricSamsonCarto/LandSurfaceTemperature_Landsat8'>github page.</a> 
                 The output LST raster will be in degrees Celsius. The output names will appear as: 'LST_184457GMT_20200403', which stands for 'Land Surface 
